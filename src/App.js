@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Menubar from "./components/header/Menubar";
 import Bodysec from "./components/body/Bodysec";
+import Footer from "./components/footer/Footer";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,15 +16,19 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/"><Menubar category='general'/></Route>
-            <Route path="/bussiness"><Menubar category='bussiness'/></Route>
-            <Route path="/entertainment"><Menubar category='entertainment'/></Route>
-            <Route path="/general"><Menubar category='general'/></Route>
-            <Route path="/health"><Menubar category='health'/></Route>
-            <Route path="/sports"><Menubar category='sports'/></Route>
-            <Route path="/technology"><Menubar category='technology'/></Route>
+            
+            <Route path="/"><Menubar /> <Bodysec /></Route>
+
+            {/* <Route path="/bussiness"><Menubar /><Bodysec category='bussiness'/></Route>
+            <Route path="/entertainment"><Menubar /><Bodysec category='entertainment'/></Route>
+            <Route path="/general"><Menubar /><Bodysec category='general'/></Route>
+            <Route path="/health"><Menubar /><Bodysec category='health'/></Route>
+            <Route path="/sports"><Menubar /><Bodysec category='sports'/></Route>
+            <Route path="/technology"><Menubar /><Bodysec category='technology'/></Route> */}
           </Switch>
-          <Bodysec />
+
+        <Footer />
+          
         </div>
       </Router>
     </>

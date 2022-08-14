@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import "./body.css";
 import { useState } from "react";
 import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 import noimage from "./noimage.jpg"
+import CategoryContext from "../../context/AppContext";
 
 
-export default function Bodysec() {
+export default function Bodysec(props) {
 
   const [news, setnews] = useState([]);
   const [isDataFetching, setIsDataFetching] = useState(false);
   let [page, setpage] = useState(1);
-  let previous = async()=>{
-
+  let {category} = useContext(CategoryContext)
+  console.log(category)
+    let previous = async()=>{
     setpage(page = page - 1);
     setIsDataFetching(true)
       await axios
         .get(
-          `https://newsapi.org/v2/top-headlines?q=india&apiKey=1932358c23da4d88a436ccfd95f689d2&pageSize=16&page=${page}`
+          `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=b1909e15464846f489852ccab14b1815&pageSize=16&page=${page}`
         )
         .then((Response) => {
           setnews(Response.data.articles);
@@ -31,20 +33,36 @@ export default function Bodysec() {
     setIsDataFetching(true)
     await axios
       .get(
-        `https://newsapi.org/v2/top-headlines?q=india&apiKey=1932358c23da4d88a436ccfd95f689d2&pageSize=16&page=${page}`
+        `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=b1909e15464846f489852ccab14b1815&pageSize=16&page=${page}`
       )
       .then((Response) => {
         setnews(Response.data.articles);
       });
     setIsDataFetching(false)
   };
+
+
+  // useEffect(async() => {
+    
+  //     setIsDataFetching(true)
+  //     await axios
+  //       .get(
+  //         `https://newsapi.org/v2/top-headlines?category=${props.category}&apiKey=b1909e15464846f489852ccab14b1815&pageSize=16&page=${page}`
+  //       )
+  //       .then((Response) => {
+  //         setnews(Response.data.articles);
+  //       });
+  //     setIsDataFetching(false)
+    
+  //      } ,props.category)
+
   
   useEffect(() => {
     const fetchnews = async () => {
       setIsDataFetching(true)
       await axios
         .get(
-          `https://newsapi.org/v2/top-headlines?q=india&apiKey=1932358c23da4d88a436ccfd95f689d2&pageSize=16&page=${page}`
+          `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=b1909e15464846f489852ccab14b1815&pageSize=16&page=${page}`
         )
         .then((Response) => {
           setnews(Response.data.articles);
@@ -53,7 +71,10 @@ export default function Bodysec() {
     };
     
     fetchnews()
-  },[])
+  },[category])
+ 
+
+  
   
 
   return (
